@@ -12,7 +12,7 @@ node {
               [$class: 'StringParameterDefinition', name: 'gitlab_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with write permissions on Gitlab'],
               [$class: 'ChoiceParameterDefinition', name: 'overwrite_parameters', choices: ['Yes', 'No'], description: 'Set to yes to reset parameters to defaults'],
               ]
-            ]
+            ],
             pipelineTriggers([[$class: 'TimerTrigger', spec: 'H/5 * * * *']])
           ]
         )
