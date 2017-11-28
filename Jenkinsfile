@@ -11,7 +11,7 @@ node {
           [$class: 'StringParameterDefinition', name: 'gitlab_url', defaultValue: '', description: 'Gitlab repository URL (Use SSH Format)'],
           [$class: 'StringParameterDefinition', name: 'gitlab_branch', defaultValue: 'master', description: 'Gitlab branch to fetch'],
           [$class: 'StringParameterDefinition', name: 'gitlab_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with write permissions on Gitlab'],
-          [$class: 'ChoiceParameterDefinition', name: 'overwrite_parameters', choices: "Yes\nNo", description: 'Set to yes to overwrite parameters'],  
+          [$class: 'StringParameterDefinition', name: 'overwrite_parameters', defaultValue: "No", description: 'Set to yes to overwrite parameters'],  
         ]]])
         currentBuild.result = 'ABORTED'
         error('Parameters Reset')
@@ -23,14 +23,14 @@ node {
     stage('Clone Github Repo') {    
         if(params.github_credential_id) {
           git([
-              url: params.git_url,
-              branch: params.git_branch,
-              credentialsId: params.git_credential_id,
+              url: params.github_url,
+              branch: params.github_branch,
+              credentialsId: params.github_credential_id,
           ])
         } else {
           git([
-              url: params.git_url,
-              branch: params.git_branch,
+              url: params.github_url,
+              branch: params.github_branch,
           ])
         }
     }
