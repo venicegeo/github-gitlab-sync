@@ -17,10 +17,15 @@ ie. changes from Gitlab will NOT be synced back to Github.
   * Record the credential's ID
 6. Create a Jenkins Pipeline Job
   * Click Configure
-  * Select "Discard Old Builds" and configure Max number of builds to keep to 5 (Or whatever value you prefer)
-  * Under "Build Triggers" select "Build Periodically" and in the schedule box, enter `H/5 * * * *` to sync every 5 minutes (Adjust as needed)
   * Under "Pipeline" select "Pipeline Script from SCM", and enter in the URL to this repository `https://github.com/venicegeo/github-gitlab-sync.git`
   * Click Save
+7. Run job to populate parameter fields
+8. Configure parameters
+  * Click configure
+  * Configure default parameter values to match your Github/Gitlab repos
+  * Change the `overwrite_parameters` default to `No`
+  * Under "Build Triggers" select "Build Periodically" and in the schedule box, enter `H/5 * * * *` to sync every 5 minutes (Adjust as needed)
+  * Select "Discard Old Builds" and configure Max number of builds to keep to 5 (Or whatever value you prefer)
 
 ## To-Do
 * Figure out setting scheduled trigger from pipeline
