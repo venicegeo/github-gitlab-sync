@@ -22,8 +22,4 @@ ie. changes from Gitlab will NOT be synced back to Github.
 7. Configure parameters
   * Click configure
   * Configure default parameter values to match your Github/Gitlab repos
-  * Under "Build Triggers" select "Build Periodically" and in the schedule box, enter `H/5 * * * *` to sync every 5 minutes (Adjust as needed)
-  * Select "Discard Old Builds" and configure Max number of builds to keep to 5 (Or whatever value you prefer)
 
-## To-Do
-* Figure out setting scheduled trigger from pipeline
