@@ -1,7 +1,5 @@
 node {
     stage('Parameterize') {
-      echo "Parameterize step"
-      echo params.overwrite_parameters
       if(!params.overwrite_parameters || "${params.overwrite_parameters}" == "Yes") {
         properties(
           [
