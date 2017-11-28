@@ -27,7 +27,7 @@ node {
         }
     }
     stage('Push to Gitlab') {
-        sshagent([params.git_credential_id]) {
+        sshagent([params.gitlab_credential_id]) {
           sh """set -x
               ls
               ssh-add -l
