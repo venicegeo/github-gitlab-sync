@@ -14,7 +14,6 @@ node {
               [$class: 'StringParameterDefinition', name: 'gitlab_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with write permissions on Gitlab'],
               [$class: 'StringParameterDefinition', name: 'overwrite_parameters', defaultValue: "Yes", description: 'Set to yes to overwrite parameters'],  
               [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '5']],
-              //pipelineTriggers([cron('H/5 * * * *')]),
               ]
             ]
           ]
