@@ -4,7 +4,7 @@ properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [
   [$class: 'StringParameterDefinition', name: 'git_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store'],
   [$class: 'StringParameterDefinition', name: 'gitlab_project', defaultValue: '', description: 'Gitlab repository URL (Use SSH Format)'],  
 ]]])
-properties([pipelineTriggers([cron('H/3 * * * *')])])
+//properties([pipelineTriggers([cron('H/3 * * * *')])])
 
 node {
     stage('Setup') {
