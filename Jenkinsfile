@@ -4,11 +4,18 @@ properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [
   [$class: 'StringParameterDefinition', name: 'github_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with pull permissions on Github (Leave blank if using HTTPS)'],
   [$class: 'StringParameterDefinition', name: 'gitlab_url', defaultValue: '', description: 'Gitlab repository URL (Use SSH Format)'],
   [$class: 'StringParameterDefinition', name: 'gitlab_branch', defaultValue: 'master', description: 'Gitlab branch to fetch'],
-  [$class: 'StringParameterDefinition', name: 'gitlab_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with write permissions on Gitlab'],  
+  [$class: 'StringParameterDefinition', name: 'gitlab_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with write permissions on Gitlab'],
+  [$class: 'StringParameterDefinition', name: 'overwrite_parameters', choices: "Yes\nNo", description: 'Set to yes to overwrite parameters'],  
 ]]])
 //properties([pipelineTriggers([cron('H/3 * * * *')])])
 
 node {
+    stage('Parameterize') {
+      if("${params.overwrite_parameters}" == "Yes") {
+        currentBuild.result = 'ABORTED'
+        error('Parameters Reset')
+      }
+    }
     stage('Setup') {
         deleteDir()
     }
