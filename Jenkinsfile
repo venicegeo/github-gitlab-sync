@@ -1,28 +1,27 @@
 node {
     stage('Parameterize') {
-      if(!params.overwrite_parmeters) {
-        if("${params.overwrite_parameters}" == "Yes") {
-          properties(
-            [
-              [$class: 'ParametersDefinitionProperty', parameterDefinitions: [
-                [$class: 'StringParameterDefinition', name: 'github_url', defaultValue: '', description: 'Github repository URL (Use SSH Format if specifying a Github Credential Id)'],
-                [$class: 'StringParameterDefinition', name: 'github_branch', defaultValue: 'master', description: 'Github branch to fetch'],
-                [$class: 'StringParameterDefinition', name: 'github_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with pull permissions on Github (Leave blank if using HTTPS)'],
-                [$class: 'StringParameterDefinition', name: 'gitlab_url', defaultValue: '', description: 'Gitlab repository URL (Use SSH Format)'],
-                [$class: 'StringParameterDefinition', name: 'gitlab_branch', defaultValue: 'master', description: 'Gitlab branch to fetch'],
-                [$class: 'StringParameterDefinition', name: 'gitlab_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with write permissions on Gitlab'],
-                [$class: 'StringParameterDefinition', name: 'overwrite_parameters', defaultValue: "Yes", description: 'Set to yes to overwrite parameters'],  
-                [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '5']],
-                pipelineTriggers([cron('H/5 * * * *')]),
-                ]
+      echo params.overwrite_parameters
+      if(!params.overwrite_parameters || "${params.overwrite_parameters}" == "Yes") {
+        properties(
+          [
+            [$class: 'ParametersDefinitionProperty', parameterDefinitions: [
+              [$class: 'StringParameterDefinition', name: 'github_url', defaultValue: '', description: 'Github repository URL (Use SSH Format if specifying a Github Credential Id)'],
+              [$class: 'StringParameterDefinition', name: 'github_branch', defaultValue: 'master', description: 'Github branch to fetch'],
+              [$class: 'StringParameterDefinition', name: 'github_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with pull permissions on Github (Leave blank if using HTTPS)'],
+              [$class: 'StringParameterDefinition', name: 'gitlab_url', defaultValue: '', description: 'Gitlab repository URL (Use SSH Format)'],
+              [$class: 'StringParameterDefinition', name: 'gitlab_branch', defaultValue: 'master', description: 'Gitlab branch to fetch'],
+              [$class: 'StringParameterDefinition', name: 'gitlab_credential_id', defaultValue: '', description: 'ID of ssh key in Jenkins credential store with write permissions on Gitlab'],
+              [$class: 'StringParameterDefinition', name: 'overwrite_parameters', defaultValue: "Yes", description: 'Set to yes to overwrite parameters'],  
+              [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '5']],
+              pipelineTriggers([cron('H/5 * * * *')]),
               ]
             ]
-          )
-          currentBuild.result = 'ABORTED'
-          error('Parameters Reset')
-        }
+          ]
+        )
+        currentBuild.result = 'ABORTED'
+        error('Parameters Reset')
       }
-    }  
+    }
     stage('Setup') {
         deleteDir()
     }
